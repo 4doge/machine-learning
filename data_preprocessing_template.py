@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn.preprocessing import Imputer, LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import Imputer, LabelEncoder, OneHotEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 
 # Import the dataset from .csv file
@@ -45,5 +45,14 @@ y = label_encoder_x.fit_transform(y)
 # test_size - declaring what part of our dataset we will use as test data in percents
 # So if we have 100 objects in our dataset and test_size 0.2 we will get the 20 objects for test and 80 as training
 # good values 0.2-0.25
-
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+
+
+# Feature scaling
+# The "Age" and "Salary" fields not in the same scale rank
+# So if we want to do the clear math we need to put both of the into the same scale rank
+# e.g. from -1 to 1
+# There two ways: normalization & standardisation
+standard_scaler_x = StandardScaler()
+x_train = standard_scaler_x.fit_transform(x_train)
+x_test = standard_scaler_x.transform(x_test)
